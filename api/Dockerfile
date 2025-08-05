@@ -16,5 +16,5 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN chown -R www-data:www-data /fleetbase/api
 
-EXPOSE 9000
+EXPOSE 8800
 CMD ["php-fpm"]
