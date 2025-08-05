@@ -58,3 +58,6 @@ services:
       - api
     volumes:
       - ./console:/console
+
+volumes:
+  mysql_data:
