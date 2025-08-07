@@ -7,6 +7,8 @@ RUN apk add --no-cache \
 RUN pecl install redis \
     && docker-php-ext-enable redis
 
+RUN docker-php-ext-install pdo_mysql zip gd intl opcache bcmath
+
 # Copy composer binary from official image
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
