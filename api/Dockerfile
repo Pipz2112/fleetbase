@@ -2,9 +2,10 @@ FROM php:8.2-fpm-alpine
 
 # Install dependencies
 RUN apk add --no-cache \
-    bash git curl zip unzip libpng-dev libjpeg-turbo-dev freetype-dev oniguruma-dev icu-dev libxml2-dev zlib-dev libzip-dev mysql-client nodejs npm
+    bash git curl zip unzip libpng-dev libjpeg-turbo-dev freetype-dev oniguruma-dev icu-dev libxml2-dev zlib-dev libzip-dev mysql-client nodejs npm $PHPIZE_DEPS
 
-RUN docker-php-ext-install pdo_mysql zip gd intl opcache bcmath
+RUN pecl install redis \
+    && docker-php-ext-enable redis
 
 # Copy composer binary from official image
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
