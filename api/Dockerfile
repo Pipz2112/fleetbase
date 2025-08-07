@@ -7,6 +7,8 @@ RUN docker-php-ext-install pdo_mysql zip gd intl opcache bcmath
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+COPY ./api /fleetbase/api
+
 WORKDIR /fleetbase/api
 
 EXPOSE 8800
