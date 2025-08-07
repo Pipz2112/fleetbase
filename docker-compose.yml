@@ -40,8 +40,7 @@ services:
       REDIS_HOST: redis
     command: >
       sh -c "
-        cp .env.example .env &&
-        sed -i '/^APP_KEY=/!b;n;cAPP_KEY=' .env &&
+        cp .env.example .env
         composer install &&
         php artisan key:generate &&
         php artisan migrate --force &&
