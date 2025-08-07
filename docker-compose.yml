@@ -8,12 +8,12 @@ services:
   mysql:
     image: mysql:8.0
     environment:
-      MYSQL_DATABASE: fleetbase
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./docker/init:/docker-entrypoint-initdb.d
     restart: unless-stopped
 
   api:
@@ -42,8 +42,6 @@ services:
       sh -c "
         cp .env.example .env &&
         composer install &&
-        until mysql -hmysql -uroot -proot -e 'select 1'; do echo 'Waiting for MySQL...'; sleep 2; done &&
-        mysql -hmysql -uroot -proot -e 'CREATE DATABASE IF NOT EXISTS fleetbase_storefront;' &&
         php artisan key:generate &&
         php artisan migrate --force &&
         php artisan serve --host=0.0.0.0 --port=8800
